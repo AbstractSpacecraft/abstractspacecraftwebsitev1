@@ -73,5 +73,10 @@
   "unit-tests": "NODE_ENV=test node -r @babel/register -r @babel/polyfill ./src/index.test.js",
   "watch": "watch 'clear && yarn -s unit-tests | tap-nirvana && yarn -s format' src",
   "debug": "NODE_ENV=test node --inpsect-brk -r @babel/register -r @babel/polyfill ./src/index.test.js",
-  "functional-tests": "testcafe 'chrome:headless' src/functional-tests/"
+  "functional-tests": "testcafe 'chrome:headless' src/functional-tests/",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn -s validate"
+    }
+  }
 }
