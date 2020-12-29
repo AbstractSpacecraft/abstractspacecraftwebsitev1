@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+      ],
+   "presets": [
+     [
+       "babel-preset-gatsby",
+       {
+           "targets": {
+               "browsers": [">0.25%", "not dead"]
+           }
+       }
+     ],
+     [
+       "@babel/preset-env",
+         {
+           "targets": ["last 2 versions", "safari >= 7"]
+         }
+      ],
+       "@babel/preset-react"
+    ]
+}
