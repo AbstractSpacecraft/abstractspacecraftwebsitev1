@@ -1,6 +1,6 @@
 {
   "name": "abstractspacecraftwebsitev1",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
@@ -11,20 +11,32 @@
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn -s validate"
+    }
+  },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "yarn --silent lint --fix && echo 'Linting automated code fix complete.'",
+    "functional-tests": "testcafe 'chrome:headless' src/functional-tests/",
+    "lint": "echo 'ESLinting...' && eslint --ignore-path .gitignore . && echo 'ESLint complete'",
+    "start": "react-scripts start",
+    "unit-tests": "NODE_ENV=test node -r @babel/register -r @babel/polyfill ./src/index.unit-test.js",
+    "validate": "yarn -s unit-tests && yarn -s lint && yarn -s functional-tests --app 'yarn start' --app-init-delay 4000",
+    "watch": "watch 'clear && yarn -s unit-tests | tap-nirvana && yarn -s format' src",
+    "debug": "NODE_ENV=test node --inpsect-brk -r @babel/register -r @babel/polyfill ./src/index.test.js"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest",
-      "plugin:prettier/recommended"
+      "plugin:prettier/recommended",
+      "plugin:testcafe/recommended"
     ],
     "plugins": [
-      "simple-import-sort"
+      "simple-import-sort", "testcafe"
     ],
     "rules": {
       "simple-import-sort": "error",
@@ -67,16 +79,5 @@
     "tap-nirvana": "^1.1.0",
     "testcafe": "^1.10.1",
     "watch": "^1.0.2"
-  },
-  "lint": "echo 'ESLinting...' && eslint --ignore-path .gitignore . && echo 'ESLint complete'",
-  "format": "yarn --silent lint --fix && echo 'Linting automated code fix complete.'",
-  "unit-tests": "NODE_ENV=test node -r @babel/register -r @babel/polyfill ./src/index.test.js",
-  "watch": "watch 'clear && yarn -s unit-tests | tap-nirvana && yarn -s format' src",
-  "debug": "NODE_ENV=test node --inpsect-brk -r @babel/register -r @babel/polyfill ./src/index.test.js",
-  "functional-tests": "testcafe 'chrome:headless' src/functional-tests/",
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn -s validate"
-    }
   }
 }
